@@ -9,6 +9,51 @@ body {
     color: white;
 }
 
+.header {
+    display: grid;
+    font-size: xx-large;
+    grid-column: 3;
+    grid-row: 1;
+    justify-items: center;
+    text-align: center;
+
+}
+
+.information {
+    display: grid;
+    grid-column: 3;
+    grid-row: 2;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+        "specific blank specific_entry ."
+        "general blank general_entry";
+}
+
+.specific_yugioh {
+    grid-area: specific;
+}
+
+.specific_entry {
+    grid-area: specific_entry;
+}
+
+.general_yugioh {
+    grid-area: general;
+}
+
+.general_entry {
+    grid-area: general_entry;
+}
+
+.navbar {
+    color: aqua;
+}
+
+.vertical_navbar {
+    color: aliceblue;
+}
+
 .button {
     border-radius: 3px;
     border: 1px solid #dcdcdc;
@@ -24,7 +69,8 @@ body {
 }
 
 .container {
-    grid-template-columns: 1fr auto auto auto auto 1fr;
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 1fr auto;
     grid-template-rows: 1fr auto;
 }
 
