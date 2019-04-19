@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adiulay/node_final.git"
+    "url": "git+https://github.com/adiulay/yugioh_database.git",
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/adiulay/node_final/issues"
+    "url": "https://github.com/adiulay/yugioh-database/issues"
   },
-  "homepage": "https://github.com/adiulay/node_final#readme",
+  "homepage": "https://github.com/adiulay/yugioh-database#readme",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
