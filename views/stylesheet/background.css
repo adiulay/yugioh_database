@@ -1,0 +1,30 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: "Verdana", Geneva, sans-serif;
+}
+
+.active {
+    background-color: red;
+    color: white;
+}
+
+.button {
+    border-radius: 3px;
+    border: 1px solid #dcdcdc;
+    display: inline-block;
+    cursor: pointer;
+    color: black;
+    font-family: Arial, sans-serif;
+    /*font-size: 10px;*/
+    font-weight:bold;
+    padding: 0 10px;
+    text-decoration:none;
+    text-shadow:0 1px 0 #ffffff;
+}
+
+.container {
+    grid-template-columns: 1fr auto auto auto auto 1fr;
+    grid-template-rows: 1fr auto;
+}
+

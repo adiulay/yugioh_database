@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>YuGiOh Database</title>
+        <link rel="stylesheet" type="text/css" href="stylesheet/background.css">
+    </head>
+    <body class="container">
+        {{> navbar}}
+        <div>
+            <h1>YuGiOh Database</h1>
+            <form method="post" action="/YGOspecific">
+                <label>
+                    Specific Card Name: <input type="text" name="specific" placeholder="Enter card name" required>
+                    <input type="submit" class="button" value="Get Specific Card">
+                </label>
+            </form>
+            <br>
+            <form method="post" action="/YGOgeneral">
+                <label>
+                    General Card Name:  <input type="text" name="general" placeholder="Enter card name" required>
+                    <input type="submit" class="button" value="Get Card">
+                </label>
+            </form>
+        </div>
+
+        <div>
+            {{# each show_card}}
+                <p>{{this}}</p>
+<!--                <img src="{{this}}" alt="yugioh-card">-->
+            {{/each}}
+        </div>
+
+    </body>
+</html>

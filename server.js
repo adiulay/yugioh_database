@@ -15,10 +15,54 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.set('views', __dirname + '/views');
+app.use(express.static(__dirname + '/views'));
+
 app.set('view engine', 'hbs');
 
 app.get('/', (request, response) => {
-    response.send('Hello world');
+    response.render('index.hbs', {
+        home_link: 'active'
+    });
+});
+
+app.get('/yugioh', (request, response) => {
+    response.render('ygo_main.hbs', {
+        yugioh_link: 'active'
+    })
+});
+
+app.post('/YGOspecific', (request, response) => {
+    output_card = [
+        'output',
+        'should',
+        'look',
+        'like',
+        'this'
+    ];
+
+    var yugioh_card = {
+        show_card: output_card,
+        yugioh_link: 'active'
+    };
+
+    response.render('ygo_main.hbs', yugioh_card)
+});
+
+app.post('/YGOgeneral', (request, response) => {
+    output_card = [
+        'this',
+        'should',
+        'look',
+        'like',
+        'this'
+    ];
+
+    var yugioh_card = {
+        show_card: output_card,
+        yugioh_link: 'active'
+    };
+
+    response.render('ygo_main.hbs', yugioh_card)
 });
 
 app.listen(port, () => {
