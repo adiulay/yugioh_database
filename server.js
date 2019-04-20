@@ -6,6 +6,8 @@ const _ = require('lodash');
 const port = process.env.PORT || 8080;
 const fs = require('fs');
 
+const yugioh = require('./javascript/yugioh_db');
+
 var app = express();
 hbs.registerPartials(__dirname + '/views/partials');
 
@@ -31,34 +33,25 @@ app.get('/yugioh', (request, response) => {
     })
 });
 
-app.post('/YGOspecific', (request, response) => {
-    output_card = [
-        'output',
-        'should',
-        'look',
-        'like',
-        'this'
-    ];
+app.post('/YGOspecific', async (request, response) => {
+    var card = request.body.specific;
+    var grab_card = await yugioh.FindSpecific(card);
+    // console.log(grab_card)
 
     var yugioh_card = {
-        show_card: output_card,
+        show_card: grab_card,
         yugioh_link: 'active'
     };
 
     response.render('ygo_main.hbs', yugioh_card)
 });
 
-app.post('/YGOgeneral', (request, response) => {
-    output_card = [
-        'this',
-        'should',
-        'look',
-        'like',
-        'this'
-    ];
+app.post('/YGOgeneral', async (request, response) => {
+    var card = request.body.general;
+    var grab_card = await yugioh.FindGeneral(card);
 
     var yugioh_card = {
-        show_card: output_card,
+        show_card: grab_card,
         yugioh_link: 'active'
     };
 
