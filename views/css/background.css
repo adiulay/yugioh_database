@@ -4,6 +4,12 @@ body {
     font-family: "Verdana", Geneva, sans-serif;
 }
 
+img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+}
+
 .active {
     background-color: red;
     color: white;
@@ -12,11 +18,40 @@ body {
 .header {
     display: grid;
     font-size: xx-large;
-    grid-column: 3;
+    grid-column: 2;
     grid-row: 1;
     justify-items: center;
     text-align: center;
+}
 
+.navbar {
+    display: grid;
+    grid-column: 2;
+    grid-row: 2;
+    justify-content: center;
+    text-align: left;
+}
+
+.entries {
+    display: grid;
+    grid-column: 2;
+    grid-row: 3;
+    justify-content: center;
+}
+
+.child {
+    grid-column: 2;
+    grid-row: 4;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.card_output {
+    border-style: solid;
+    border-color: red;
+    display: block;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
 }
 
 .button {
@@ -35,7 +70,7 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: auto 1fr 1fr 1fr auto;
-    grid-template-rows: 1fr auto;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    /*grid-template-rows: 1fr auto;*/
 }
 

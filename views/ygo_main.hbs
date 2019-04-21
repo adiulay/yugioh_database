@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>YuGiOh Database</title>
-        <link rel="stylesheet" type="text/css" href="css/background.css">
-    </head>
-    <body >
-        {{> navbar}}
-        <h1>YuGiOh Database</h1>
 
-        <div>
-            <div>Specific Card Name:</div>
-            <form method="post" action="/YGOspecific">
-                <label>
-                    <input type="text" name="specific" placeholder="Enter card name" required>
-                    <input type="submit" class="button" value="Get Specific Card">
-                </label>
-            </form>
+<head>
+    <meta charset="UTF-8">
+    <title>YuGiOh Database</title>
+    <link rel="stylesheet" type="text/css" href="css/background.css">
+</head>
 
-            <div>General Card Name:</div><br>
-            <form method="post" action="/YGOgeneral">
-                <label>
-                    <input type="text" name="general" placeholder="Enter card name" required>
-                    <input type="submit" class="button" value="Get Card">
-                </label>
-            </form>
-        </div>
+<body class="container">
+    {{> navbar}}
+    <h1 class="header">YuGiOh Database</h1>
+    <div class="entries">
+        <div>Specific Card Name:</div>
+        <form method="post" action="/YGOspecific">
+            <label>
+                <input type="text" name="specific" placeholder="Enter card name" required>
+                <input type="submit" class="button" value="Get Specific Card">
+            </label>
+        </form>
+        <div>General Card Name:</div><br>
+        <form method="post" action="/YGOgeneral">
+            <label>
+                <input type="text" name="general" placeholder="Enter card name" required>
+                <input type="submit" class="button" value="Get Card">
+            </label>
+        </form>
+    </div>
+    <div class="child">
+        {{# each show_card}}
+        <!--                <p>{{this}}</p>-->
+        <div class="card_output">
+	        <img src="{{this}}" alt="No card matching your query was found in the database. Try general search.">
+	        {{/each}}
+    	</div>
+    </div>
+</body>
 
-        <div>
-            {{# each show_card}}
-<!--                <p>{{this}}</p>-->
-                <img src="{{this}}" alt="No card matching your query was found in the database. Try general search.">
-            {{/each}}
-        </div>
-
-    </body>
 </html>

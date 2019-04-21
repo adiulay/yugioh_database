@@ -2,9 +2,22 @@ const axios = require('axios');
 const _ = require('lodash');
 const fs = require('fs');
 
+const path = './yugioh_cache.json';
+
 setTimeout(Initiation = () => {
-    console.log('yugioh_db loaded');
+    try {
+        if (fs.existsSync(path)) {
+            console.log(`${path} is found`);
+        } else {
+            throw `File ${path} is not found, creating new file...`;
+        }
+    } catch (err) {
+        console.log(err);
+        fs.writeFileSync('yugioh_cache.json', "{}");
+    }
 }, 500);
+
+
 
 var DbSpecific = async (card_name) => {
     try{
@@ -39,6 +52,7 @@ var DbGeneral = async (card_name) => {
         for (i=0; i < card_output.length; i++) {
             card_list.push(card_output[i].image_url)
         }
+
         return card_list
     } catch (err) {
         if (err.response.status === 400) {
