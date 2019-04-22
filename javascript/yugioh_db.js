@@ -17,11 +17,12 @@ setTimeout(Initiation = () => {
     }
 }, 500);
 
-
+var readFile = fs.readFileSync('yugioh_cache.json');
+var fileObject = JSON.parse(readFile);
 
 var DbSpecific = async (card_name) => {
     try{
-        var db_specific = await axios.get(`https://db.ygoprodeck.com/api/v4/cardinfo.php?name=${encodeURIComponent(card_name)}`);
+        var db_specific = await axios.get(`https://db.ygoprodeck.com/api/v4/cardinfo.php?name=${encodeURIComponent(card_name)}&sort=name`);
 
         var card_output = db_specific.data[0];
 
@@ -43,7 +44,7 @@ var DbSpecific = async (card_name) => {
 
 var DbGeneral = async (card_name) => {
     try{
-        var db_specific = await axios.get(`https://db.ygoprodeck.com/api/v4/cardinfo.php?fname=${encodeURIComponent(card_name)}`);
+        var db_specific = await axios.get(`https://db.ygoprodeck.com/api/v4/cardinfo.php?fname=${encodeURIComponent(card_name)}&sort=name`);
 
         var card_output = db_specific.data[0];
 
