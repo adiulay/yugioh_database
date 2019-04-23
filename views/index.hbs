@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Adiulay's Official Website</title>
-        <link rel="stylesheet" type="text/css" href="css/background.css">
+<!--        <link rel="stylesheet" type="text/css" href="css/background.css">-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body class="container">
 
@@ -15,13 +16,13 @@
             <p>Pick any links to get accessed to:</p>
 
             <div>
-                <ul>
-                    <li><a class="active" href="/">Home</a></li>
-                    <li><a class="{{yugioh_link}}" href="/yugioh">Yu-Gi-Oh Database</a></li>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link {{yugioh_link}}" href="/yugioh">Yu-Gi-Oh Database</a></li>
                 </ul>
             </div>
 
         </div>
-
+        {{> bootstrap_js}}
     </body>
 </html>
