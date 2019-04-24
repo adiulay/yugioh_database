@@ -38,13 +38,18 @@
             </form>
         </div>
     </div>
-    <div class="child">
+    <div class="row">
         {{# each show_card}}
-        <!--                <p>{{this}}</p>-->
-        <div class="card_output">
+        <div class="col">
 	        <img src="{{this}}" alt="No card matching your query was found in the database. Try general search.">
-	        {{/each}}
     	</div>
+            {{/each}}
+
+        {{# each show_card}}
+        <div class="col">
+            <img src="{{this}}" alt="No card matching your query was found in the database. Try general search.">
+        </div>
+            {{/each}}
     </div>
     {{> bootstrap_js}}
 </body>
