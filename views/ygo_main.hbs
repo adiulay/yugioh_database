@@ -8,30 +8,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body class="container">
+<body class="container-fluid">
     {{> navbar}}
 
     <div class="row">
-        <div class="col">
-            <h1 class="header">YuGiOh Database</h1>
+        <div class="col text-center mb-5">
+            <h1>YuGiOh Database</h1>
         </div>
     </div>
 
     <div class="row">
-        <div class="col">Specific Card Name:</div>
         <div class="col">
-            <form method="post" action="/YGOspecific">
+            <form class="text-right" method="post" action="/YGOspecific">
                 <label>
+                    <span>Specific Card Name: </span>
                     <input type="text" name="specific" placeholder="Enter card name" required>
                     <input type="submit" class="button" value="Get Specific Card">
                 </label>
             </form>
         </div>
 
-        <div class="col">General Card Name:</div>
         <div class="col">
             <form method="post" action="/YGOgeneral">
                 <label>
+                    <span>General Card Name: </span>
                     <input type="text" name="general" placeholder="Enter card name" required>
                     <input type="submit" class="button" value="Get Card">
                 </label>
@@ -39,18 +39,14 @@
         </div>
     </div>
     <div class="row">
-        {{# each show_card}}
-        <div class="col">
-	        <img src="{{this}}" alt="No card matching your query was found in the database. Try general search.">
-    	</div>
-            {{/each}}
+        <div class="col text-center">
+            {{# each show_card}}
 
-        {{# each show_card}}
-        <div class="col">
-            <img src="{{this}}" alt="No card matching your query was found in the database. Try general search.">
-        </div>
+                <img src="{{this}}" alt="No card matching your query was found in the database. Try general search.">
             {{/each}}
+        </div>
     </div>
+
     {{> bootstrap_js}}
 </body>
 
