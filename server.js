@@ -33,7 +33,7 @@ app.get('/yugioh', (request, response) => {
     })
 });
 
-app.post('/YGOspecific', async (request, response) => {
+app.post('/yugioh/YGOspecific', async (request, response) => {
     var card = request.body.specific;
     var grab_card = await yugioh.FindSpecific(card);
     // console.log(grab_card)
@@ -46,7 +46,7 @@ app.post('/YGOspecific', async (request, response) => {
     response.render('ygo_main.hbs', yugioh_card)
 });
 
-app.post('/YGOgeneral', async (request, response) => {
+app.post('/yugioh/YGOgeneral', async (request, response) => {
     var card = request.body.general;
     var grab_card = await yugioh.FindGeneral(card);
 
