@@ -59,9 +59,7 @@ app.post('/YGOgeneral', async (request, response) => {
 });
 
 app.use((request, response) => {
-    response.send({
-        Error: '404 page does not exist'
-    });
+    response.render('Error_Page.hbs');
 });
 
 app.listen(port, () => {
