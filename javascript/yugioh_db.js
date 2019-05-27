@@ -15,7 +15,7 @@ setTimeout(Initiation = () => {
         console.log(err);
         fs.writeFileSync('yugioh_cache.json', "{}");
     }
-}, 500);
+}, 100);
 
 var readFile = fs.readFileSync('yugioh_cache.json');
 var fileObject = JSON.parse(readFile);

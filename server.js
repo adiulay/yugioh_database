@@ -58,6 +58,13 @@ app.post('/YGOgeneral', async (request, response) => {
     response.render('ygo_main.hbs', yugioh_card)
 });
 
+app.use((request, response) => {
+    response.send({
+        Error: '404 page does not exist'
+    });
+});
+
 app.listen(port, () => {
     console.log(`Server is up on the port ${port}`);
+    console.log('http://localhost:8080/')
 });
