@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>YuGiOh Database</title>
-<!--    <link rel="stylesheet" type="text/css" href="css/background.css">-->
+    <link rel="stylesheet" type="text/css" href="css/background.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
@@ -38,16 +38,20 @@
             </form>
         </div>
     </div>
-    <div class="row">
-        <div class="col text-center">
-            {{# each show_card}}
 
-                <img src="{{this}}" alt="No card matching your query was found in the database. Try general search.">
-            {{/each}}
+    {{#if main}}
+        <div class="row mt-2">
+            <div class="col text-center">
+                {{#if error}}
+                    {{#each show_card}}
+                        <a href="/yugioh/card_info/{{this.id}}"><img src="{{this.image}}" width="300" height="441" alt="YuGiOh_Card"></a>
+                    {{/each}}
+                {{else}}
+                    <span>Card is not found in the database, try something else.</span>
+                {{/if}}
+            </div>
         </div>
-    </div>
-
+    {{/if}}
     {{> bootstrap_js}}
 </body>
-
 </html>
