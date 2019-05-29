@@ -45,8 +45,9 @@ router.post('/yugioh/YGOgeneral', async (request, response) => {
 router.get('/yugioh/card_info/:id', async (request, response) => {
     card_information = await yugioh.getCardInfo(_.toInteger(request.params.id));
     console.log(card_information);
-    response.render('card_info.hbs', {
-        show_info: card_information
+    response.render('ygo_card_info.hbs', {
+        show_info: card_information,
+        show_card: card_information
     })
 });
 

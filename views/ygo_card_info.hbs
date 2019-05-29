@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YuGiOh Card Info</title>
+    <link rel="stylesheet" type="text/css" href="/css/background.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="container-fluid text-light">
+    {{> navbar}}
+
+    <div class="row justify-content-center">
+        <div class="col text-center mb-5">
+            <h1>YuGiOh Database</h1>
+            <h2>Card Info</h2>
+        </div>
+    </div>
+<!--justify-content-center and align-items-center VERY IMPORTANT-->
+    {{#if show_card}}
+        <div class="row justify-content-center align-items-center">
+            <div class="col-5 text-center">
+                {{#each show_info}}
+                    <img class="border border-light" src="{{this.image_url}}" width="300" height="441" alt="YuGiOh_Card">
+                {{/each}}
+            </div>
+            <div class="col-5 border border-light text-left" id="dark_opacity">
+                {{#each show_info}}
+                    <div>
+                        <div class="mb-1"><span class="font-weight-bold">Name: </span> {{this.name}}</div>
+                        <div class="mb-1"><span class="font-weight-bold">Type: {{this.type}}</div>
+                        <div class="mb-1"><span class="font-weight-bold">Description: </span>{{this.desc}}</div>
+                        {{#if this.atk}}<div class="mb-1"><span class="font-weight-bold">Attack: </span>{{this.atk}}</div>{{/if}}
+                        {{#if this.def}}<div class="mb-1"><span class="font-weight-bold">Defense: </span>{{this.def}}</div>{{/if}}
+                        {{#if this.def}}<div class="mb-1"><span class="font-weight-bold">Level: </span>{{this.level}}</div>{{/if}}
+                        {{#if this.scale}}<div class="mb-1"><span class="font-weight-bold">Scale: </span>{{this.scale}}</div>{{/if}}
+                        <div class="mb-1"><span class="font-weight-bold">Race: </span>{{this.race}}</div>
+                        {{#if this.def}}<div class="mb-1"><span class="font-weight-bold">Attribute: </span>{{this.attribute}}</div>{{/if}}
+                        {{#if this.archetype}}<div class="mb-1"><span class="font-weight-bold">Archetype: </span>{{this.archetype}}</div>{{/if}}
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    {{else}}
+        <div class="row justify-content-center">
+            <div class="col text-center">
+                <span>Card is not found in the database.</span>
+            </div>
+        </div>
+    {{/if}}
+    <div class="row mt-5 justify-content-center align-self-center">
+        <div class="col-1 border btn btn-dark text-light">
+            <a onclick="return window.history.back()">Back</a>
+        </div>
+    </div>
+
+    {{> bootstrap_js}}
+</body>
+</html>

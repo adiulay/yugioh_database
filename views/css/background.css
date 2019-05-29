@@ -7,3 +7,12 @@
     justify-content: center;
     align-items: center;
 }
+
+body {
+    background: url("../images/background.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+#dark_opacity {
+    background: rgba(0, 0, 0, 0.5);
+}

@@ -107,10 +107,12 @@ var CardInformation = async (id) => {
                 return false
             }
         } else {
-            return 'Number id cannot be negative.'
+            // return 'Number id cannot be negative.'
+            return false
         }
     } else {
-        return 'Number id must be an integer'
+        // return 'Number id must be an integer'
+        return false
     }
 };
 
