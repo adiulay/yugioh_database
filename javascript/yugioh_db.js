@@ -33,7 +33,11 @@ var DbSpecific = async (card_name) => {
         var card_list = [];
 
         for (i=0; i < card_output.length; i++) {
-            card_list.push(card_output[i].image_url)
+            // card_list.push(card_output[i].image_url)
+            card_list.push({
+                image: card_output[i].image_url,
+                id: card_output[i].id
+            })
         }
         return card_list
     } catch (err) {

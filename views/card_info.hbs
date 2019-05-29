@@ -19,12 +19,16 @@
     <div class="row">
         <div class="col">
             {{#each show_info}}
-                <div>{{this.name}}</div>
-                <div>{{this.type}}</div>
-                <div>{{this.desc}}</div>
-                {{this.atk}}
-                {{this.def}}
-                {{this.level}}
+                <div>Name: {{this.name}}</div>
+                <div>Type: {{this.type}}</div>
+                <div>Description: {{this.desc}}</div>
+                {{#if this.atk}}<div>Attack: {{this.atk}}</div>{{/if}}
+                {{#if this.def}}<div>Defense: {{this.def}}</div>{{/if}}
+                {{#if this.def}}<div>Level: {{this.level}}</div>{{/if}}
+                <div>Race: {{this.race}}</div>
+                {{#if this.def}}<div>Attribute: {{this.attribute}}</div>{{/if}}
+                {{#if this.archetype}}<div>Archetype: {{this.archetype}}</div>{{/if}}
+                <img src="{{this.image_url}}" width="300" height="441" alt="YuGiOh_Card">
             {{/each}}
         </div>
     </div>
