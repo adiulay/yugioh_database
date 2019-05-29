@@ -40,16 +40,18 @@
     </div>
 
     {{#if main}}
-        <div class="row mt-2">
-            <div class="col text-center">
-                {{#if error}}
+        <div class="row justify-content-center border mt-5">
+            {{#if error}}
+                <div class="col border d-flex align-items-center flex-wrap justify-content-center justify-content-between">
                     {{#each show_card}}
-                        <a href="/yugioh/card_info/{{this.id}}"><img src="{{this.image}}" width="300" height="441" alt="YuGiOh_Card"></a>
+                        <a class="mb-3" href="/yugioh/card_info/{{this.id}}"><img src="{{this.image}}" width="300" height="441" alt="YuGiOh_Card"></a>
                     {{/each}}
-                {{else}}
+                </div>
+            {{else}}
+                <div class="col text-center">
                     <span>Card is not found in the database, try something else.</span>
-                {{/if}}
-            </div>
+                </div>
+            {{/if}}
         </div>
     {{/if}}
     {{> bootstrap_js}}
