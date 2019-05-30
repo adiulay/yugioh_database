@@ -8,7 +8,7 @@ const yugioh = require('../javascript/yugioh_db');
 
 router.get('/yugioh', (request, response) => {
     response.render('ygo_main.hbs', {
-        yugioh_link: 'active',
+        yugioh_link: 'bg-dark',
         main: false
     })
 });
@@ -20,7 +20,7 @@ router.post('/yugioh/YGOspecific', async (request, response) => {
 
     var yugioh_card = {
         show_card: grab_card,
-        yugioh_link: 'active',
+        yugioh_link: 'bg-dark',
         error: grab_card,
         main: true
     };
@@ -34,7 +34,7 @@ router.post('/yugioh/YGOgeneral', async (request, response) => {
 
     var yugioh_card = {
         show_card: grab_card,
-        yugioh_link: 'active',
+        yugioh_link: 'bg-dark',
         error: grab_card,
         main: true
     };
@@ -47,7 +47,8 @@ router.get('/yugioh/card_info/:id', async (request, response) => {
     console.log(card_information);
     response.render('ygo_card_info.hbs', {
         show_info: card_information,
-        show_card: card_information
+        show_card: card_information,
+        yugioh_link: 'bg-dark'
     })
 });
 

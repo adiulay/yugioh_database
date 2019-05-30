@@ -11,8 +11,15 @@
 body {
     background: url("../images/background.jpg") no-repeat center center fixed;
     background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 #dark_opacity {
     background: rgba(0, 0, 0, 0.5);
+}
+
+#white-text {
+    color: white;
 }

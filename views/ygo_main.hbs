@@ -42,9 +42,10 @@
     {{#if main}}
         <div class="row justify-content-center mt-5">
             {{#if error}}
-                <div class="col d-flex align-items-center flex-wrap justify-content-center justify-content-between">
+                <div class="col d-flex flex-wrap justify-content-center">
+<!--                <div class="col d-flex align-items-center flex-wrap justify-content-center justify-content-between">-->
                     {{#each show_card}}
-                        <a class="mb-3" href="/yugioh/card_info/{{this.id}}"><img src="{{this.image}}" width="300" height="441" alt="YuGiOh_Card"></a>
+                        <a class="my-2 mx-2" href="/yugioh/card_info/{{this.id}}"><img src="{{this.image}}" width="300" height="441" alt="YuGiOh_Card"></a>
                     {{/each}}
                 </div>
             {{else}}
