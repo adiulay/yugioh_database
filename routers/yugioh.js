@@ -49,12 +49,20 @@ router.get('/yugioh/card_info/:id', async (request, response) => {
         show_info: card_information,
         show_card: card_information,
         yugioh_link: 'bg-dark',
-        card_identification: request.params.id
+        card_identification: request.params.id,
+        title: true
     })
 });
 
-router.post('/yugioh/card_info/:id/deck', (request, response) => {
-    response.send(request.params)
+router.get('/yugioh/:id/create_new_deck', (request, response) => {
+    var card_id = request.params.id;
+
+    response.render('ygo_card_info.hbs', {
+        yugioh_link: 'bg-dark',
+        title: false,
+        create: true
+    })
+    // response.send('hi')
 });
 
 // router.use((request, response) => {
