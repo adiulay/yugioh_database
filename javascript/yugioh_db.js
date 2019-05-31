@@ -2,27 +2,47 @@ const axios = require('axios');
 const _ = require('lodash');
 const fs = require('fs');
 
-const path = './yugioh_cache.json';
+//firebase settings
+
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./serviceAccount.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://arctic-hydrus.firebaseio.com"
+});
 
 setTimeout(startup = () => {
     console.log('Yugioh Database is up')
 }, 500);
 
-// setTimeout(Initiation = () => {
-//     try {
-//         if (fs.existsSync(path)) {
-//             console.log(`${path} is found`);
-//         } else {
-//             throw `File ${path} is not found, creating new file...`;
-//         }
-//     } catch (err) {
-//         console.log(err);
-//         fs.writeFileSync('yugioh_cache.json', "{}");
-//     }
-// }, 500);
+var add_document = async (data) => {
+    var db = admin.firestore();
+    try {
+        await db.collection('yugioh').add({
+            name: data
+        });
+        console.log('success!')
+    } catch (err) {
+        console.log(err);
+        console.log('in short, its not working')
+    }
+};
 
-// var readFile = fs.readFileSync('yugioh_cache.json');
-// var fileObject = JSON.parse(readFile);
+var delete_document = async (data) => {
+    var db = admin.firestore();
+    try {
+        await db.collection('yugioh').doc(data).delete();
+        console.log('delete successful!')
+    } catch (err) {
+        console.log(err);
+        console.log('in short, its not working')
+    }
+};
+
+// add_document('jimmy');
+// delete_document('AVCqpF5audP2Rk0NSKnUsdf');
 
 var DbSpecific = async (card_name) => {
     try{
@@ -116,13 +136,7 @@ var CardInformation = async (id) => {
     }
 };
 
-// CardInformation(60992105).then((item) => {
-//     console.log(item)
-// }).catch((err) => {
-//     if (err) {
-//         console.log('error on card info')
-//     }
-// });
+
 
 module.exports = {
     FindSpecific: DbSpecific,

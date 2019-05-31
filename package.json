@@ -21,6 +21,8 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "firebase": "^6.1.0",
+    "firebase-admin": "^8.0.0",
     "git": "^0.1.5",
     "hbs": "^4.0.4",
     "lodash": "^4.17.11"
