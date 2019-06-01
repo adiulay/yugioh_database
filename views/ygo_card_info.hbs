@@ -96,11 +96,35 @@
                         Add
                     </button>
                     <div class="dropdown-menu">
-                        <a onclick="return confirm('Create new Deck?');" class="dropdown-item" href="/yugioh/{{card_identification}}/create_new_deck">New Deck</a>
+                        <button data-toggle="modal" data-target="#creating_new_deck" class="dropdown-item">New Deck</button>
                         <div class="dropdown-divider"></div>
                         <!--                database will retrieve all the cards store in here-->
                         <a class="dropdown-item" href="#">Another action</a>
                         <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="creating_new_deck" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content bg-dark border">
+                            <div class="text-light">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="creating_new_deck">Create Deck</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span class="text-light" aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Do you want to create a new deck?</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <form action="/yugioh/{{card_identification}}/create_new_deck" method="get">
+                                    <button type="submit" class="btn btn-success border">Yes</button>
+                                </form>
+                                <button type="button" class="btn btn-danger border" data-dismiss="modal">No</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
