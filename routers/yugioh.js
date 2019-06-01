@@ -60,9 +60,28 @@ router.get('/yugioh/:id/create_new_deck', (request, response) => {
     response.render('ygo_card_info.hbs', {
         yugioh_link: 'bg-dark',
         title: false,
-        create: true
+        create: true,
+        id_params: true,
+        card_identification: card_id
     })
     // response.send('hi')
+});
+
+router.get('/yugioh/create_new_deck', (request, response) => {
+    response.render('ygo_card_info.hbs', {
+        yugioh_link: 'bg-dark',
+        title: false,
+        create: true,
+        id_params: false
+    })
+});
+
+router.post('/yugioh/:id/create_new_deck', (request, response) => {
+    response.send('success man, make this redirect to previous page via id params')
+});
+
+router.post('/yugioh/create_new_deck', (request, response) => {
+    response.send('success via no id params.')
 });
 
 // router.use((request, response) => {

@@ -2,6 +2,14 @@
     font-size: 700%;
 }
 
+.fontsize-medium {
+    font-size: 200%;
+}
+
+.font-verdana {
+    font-family: verdana, serif;
+}
+
 .parent {
     display: flex;
     justify-content: center;

@@ -26,8 +26,38 @@
 <!--justify-content-center and align-items-center VERY IMPORTANT-->
     {{#if create}}
 <!--        this section is where you can create the deck site thingy-->
-        <div class="row">
-            <div class="col">hello</div>
+        <div class="row justify-content-center">
+            <div class="col-6 p-3 border" id="dark_opacity">
+                {{#if id_params}}
+                    <form class="container" action="/yugioh/{{card_identification}}/create_new_deck" method="post">
+                        <div class="form-group text-center">
+                            <label for="deck_name" class="fontsize-medium font-verdana">Deck Name</label>
+                            <input type="text" class="form-control" id="deck_name" placeholder="Insert Deck Name" name="deck_name" required>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-dark border">Create</button>
+                        </div>
+                        <div class="text-right text-primary">
+                            <button class="btn btn-link" type="button" onclick="return history.back();"><small>Cancel</small></button>
+                        </div>
+                    </form>
+                {{else}}
+                    <form class="container" action="/yugioh/create_new_deck" method="post">
+                        <div class="form-group text-center">
+                            <label for="deck_name" class="fontsize-medium font-verdana">Deck Name</label>
+                            <input type="text" class="form-control" id="deck_name" placeholder="Insert Deck Name" name="deck_name" required>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-dark border">Create</button>
+                        </div>
+
+                        <div class="text-right text-primary">
+                            <button class="btn btn-link" type="button" onclick="return history.back();"><small>Cancel</small></button>
+                        </div>
+                    </form>
+                {{/if}}
+            </div>
+<!--            <div class="col-2 text-center border">{{card_identification}}</div>-->
         </div>
     {{else}}
 <!--        This section lets you see the card information-->
@@ -61,7 +91,7 @@
                     <button class="btn btn-dark btn-lg border" onclick="return window.history.back()">Back</button>
                 </div>
 
-                <div class="btn-group dropright col-1 text-center mb-5">
+                <div class="btn-group dropup col-1 text-center mb-5">
                     <button type="button" class="btn btn-dark btn-lg border dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Add
                     </button>
