@@ -58,7 +58,7 @@ router.get('/yugioh/:id/create_new_deck', (request, response) => {
     var card_id = request.params.id;
 
     response.render('ygo_card_info.hbs', {
-        yugioh_link: 'bg-dark',
+        create_deck_link: 'bg-dark',
         title: false,
         create: true,
         id_params: true,
@@ -69,7 +69,7 @@ router.get('/yugioh/:id/create_new_deck', (request, response) => {
 
 router.get('/yugioh/create_new_deck', (request, response) => {
     response.render('ygo_card_info.hbs', {
-        yugioh_link: 'bg-dark',
+        create_deck_link: 'bg-dark',
         title: false,
         create: true,
         id_params: false
