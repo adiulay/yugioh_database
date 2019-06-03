@@ -17,18 +17,81 @@ setTimeout(startup = () => {
     console.log('Yugioh Database is up')
 }, 500);
 
-var add_document = async (data) => {
+var create_deck = async (name) => {
+    //checks to see if deck exists, if not add new deck
     var db = admin.firestore();
     try {
-        await db.collection('yugioh').add({
-            name: data
-        });
-        console.log('success!')
+        var yugioh_db = db.collection('yugioh');
+
+        var query = yugioh_db.where('deck_name', '==', name).get();
+
+        return await query.then(snapshot => {
+            if (snapshot.empty) {
+                yugioh_db.add({
+                    deck_name: name,
+                    deck: []
+                });
+                return `Deck ${name} created.`
+                // console.log(`Fail to find deck name: ${name}`) <-- can use this for something else
+            } else {
+                return `${name} is already in used.`
+            }
+            // snapshot.forEach(doc => {    <-- useful
+            //     console.log(doc.data());
+            // });
+
+        })
     } catch (err) {
         console.log(err);
-        console.log('in short, its not working')
+        console.log('FAIL')
     }
 };
+
+var add_card = async (deck_name, card_id) => {
+    //gets the deck name from db, if found, adds card-id
+    var db = admin.firestore();
+    try {
+        var card = card_id;
+        // var doc_id;
+
+        var yugioh_db = db.collection('yugioh');
+
+        var query = await yugioh_db.where('deck_name', '==', deck_name).get();
+
+        query.forEach(doc => {
+            // console.log(doc.id);
+            // console.log(doc.data())
+
+            doc_id = doc.id;
+        });
+        return doc_id
+
+        // return query.then(snapshot => {
+        //     if (snapshot.empty) {
+        //         return `Deck ${deck_name} is not found in the database.`
+        //     } else {
+        //         snapshot.forEach(doc => {
+        //             output = [];
+        //             output.push(doc.id);
+        //             doc_id = output.join()
+        //         });
+        //         return doc_id
+        //     }
+        // })
+
+
+    } catch (err) {
+        console.log(err);
+        console.log('FAIL')
+    }
+};
+
+add_card('jimmy', 12345).then(item => {
+    console.log(item);
+}).catch(err => {
+    console.log(err);
+    console.log('FAIL')
+});
 
 var delete_document = async (data) => {
     var db = admin.firestore();
@@ -41,7 +104,19 @@ var delete_document = async (data) => {
     }
 };
 
-// add_document('jimmy');
+var get_document = async (data) => {
+    var db = admin.firestore();
+    try {
+        await db.collection('yugioh').add({
+            name: data
+        });
+        console.log('success!')
+    } catch (err) {
+        console.log(err);
+        console.log('in short, its not working')
+    }
+};
+
 // delete_document('AVCqpF5audP2Rk0NSKnUsdf');
 
 var DbSpecific = async (card_name) => {
@@ -141,5 +216,6 @@ var CardInformation = async (id) => {
 module.exports = {
     FindSpecific: DbSpecific,
     FindGeneral: DbGeneral,
-    getCardInfo: CardInformation
+    getCardInfo: CardInformation,
+    createDeck: create_deck,
 };
