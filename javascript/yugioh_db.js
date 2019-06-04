@@ -47,77 +47,167 @@ var create_deck = async (name) => {
     }
 };
 
-var add_card = async (deck_name, card_id) => {
-    //gets the deck name from db, if found, adds card-id
+var show_deck = async (deck_name) => {
     var db = admin.firestore();
     try {
-        var card = card_id;
-        // var doc_id;
+        var list = [];
 
         var yugioh_db = db.collection('yugioh');
 
         var query = await yugioh_db.where('deck_name', '==', deck_name).get();
 
-        query.forEach(doc => {
-            // console.log(doc.id);
-            // console.log(doc.data())
+        if (query.empty) {
+            return `Deck ${name} is not found in the database.`
+        } else {
+            query.forEach(doc => {
+                list = doc.data().deck;
+            })
+        }
 
-            doc_id = doc.id;
-        });
-        return doc_id
+        if (list.length === 0) {
+            return `${deck_name} deck is empty, start adding cards.`
+        }
 
-        // return query.then(snapshot => {
-        //     if (snapshot.empty) {
-        //         return `Deck ${deck_name} is not found in the database.`
-        //     } else {
-        //         snapshot.forEach(doc => {
-        //             output = [];
-        //             output.push(doc.id);
-        //             doc_id = output.join()
-        //         });
-        //         return doc_id
-        //     }
-        // })
+        return list
+    } catch (err) {
+        console.log(err);
+        console.log('in short, its not working')
+    }
+};
+//
+// show_deck('jimmy').then(item => {
+//     console.log(item);
+// }).catch(err => {
+//     console.log('error');
+//     console.log(err)
+// });
 
+var delete_deck = async (name) => {
+    var doc_id = '';
+    var db = admin.firestore();
 
+    try {
+        var yugioh_db = db.collection('yugioh');
+
+        var query = await yugioh_db.where('deck_name', '==', name).get();
+
+        if (query.empty) {
+            return `Deck ${name} is not found in the database.`
+        } else {
+            query.forEach(doc => {
+                doc_id = doc.id
+            })
+        }
+
+        await yugioh_db.doc(doc_id).delete();
+
+        return `Deck ${name} successfully deleted.`
+
+    } catch (err) {
+        if (err) {
+            console.log(err);
+            console.log('FAIL');
+        }
+    }
+};
+
+var add_card = async (deck_name, card_id) => {
+    //gets the deck name from db, if found, adds card-id
+    var db = admin.firestore();
+    try {
+        var list = [];
+        var doc_id = '';
+        var counter = 0;
+
+        var yugioh_db = db.collection('yugioh');
+
+        var query = await yugioh_db.where('deck_name', '==', deck_name).get();
+
+        if (query.empty) {
+            return `Deck ${deck_name} is not found in the database.`
+        } else {
+            query.forEach(doc => {
+                // console.log(doc.id);
+                // console.log(doc.data().deck[3]);
+                list = doc.data().deck;
+                doc_id = doc.id;
+            });
+
+            if (list.length === 60) {
+                return 'Maximum cards in deck is 60.'
+            } else {
+                var card_info = await CardInformation(card_id);
+
+                list.forEach(item => {
+                    if (item.name === card_info[0].name) {
+                        counter ++;
+                    }
+                });
+
+                if (counter === 3) {
+                    return 'Maximum is 3 cards'
+                }
+
+                if (card_info === false) {
+                    return `Card ID ${card_id} not found in Database.`
+                } else {
+                    list.push(card_info[0]);
+
+                    await yugioh_db.doc(doc_id).update({
+                        deck: list
+                    });
+
+                    return `${card_id} ${card_info[0].name} added to ${deck_name}`
+                }
+            }
+
+        }
     } catch (err) {
         console.log(err);
         console.log('FAIL')
     }
 };
 
-add_card('jimmy', 12345).then(item => {
-    console.log(item);
-}).catch(err => {
-    console.log(err);
-    console.log('FAIL')
-});
-
-var delete_document = async (data) => {
+var delete_card = async (deck_name, card_id) => {
     var db = admin.firestore();
+
     try {
-        await db.collection('yugioh').doc(data).delete();
-        console.log('delete successful!')
+        var list = [];
+        var doc_id = '';
+
+        var yugioh_db = db.collection('yugioh');
+
+        var query = await yugioh_db.where('deck_name', '==', deck_name).get();
+
+        if (query.empty) {
+            return `Deck ${deck_name} is not found in the database.`
+        } else {
+            var response = `Card ${card_id} not found in ${deck_name} deck.`;
+
+            query.forEach(item => {
+                list = item.data().deck;
+                doc_id = item.id;
+            });
+
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].id === card_id.toString()) {
+                    list.splice(i, 1);
+                    response = `Card ${card_id} deleted.`;
+                    break;
+                }
+            }
+
+            await yugioh_db.doc(doc_id).update({
+                deck: list
+            });
+
+            return response
+        }
     } catch (err) {
         console.log(err);
-        console.log('in short, its not working')
+        console.log('FAIL')
     }
 };
-
-var get_document = async (data) => {
-    var db = admin.firestore();
-    try {
-        await db.collection('yugioh').add({
-            name: data
-        });
-        console.log('success!')
-    } catch (err) {
-        console.log(err);
-        console.log('in short, its not working')
-    }
-};
-
-// delete_document('AVCqpF5audP2Rk0NSKnUsdf');
 
 var DbSpecific = async (card_name) => {
     try{
@@ -211,11 +301,13 @@ var CardInformation = async (id) => {
     }
 };
 
-
-
 module.exports = {
     FindSpecific: DbSpecific,
     FindGeneral: DbGeneral,
     getCardInfo: CardInformation,
     createDeck: create_deck,
+    showDeck: show_deck,
+    deleteDeck: delete_deck,
+    addCard: add_card,
+    deleteCard: delete_card
 };
