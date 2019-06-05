@@ -46,9 +46,12 @@
                     <div class="row justify-content-center align-items-center">
                         <h5 class="text-light">{{output}}</h5>
                     </div>
-                    <div class="row justify-content-center align-items-center">
-                        <p class="text-light">{{card_output}}</p>
-                    </div>
+
+                    {{#if card_output}}
+                        <div class="row justify-content-center align-items-center">
+                            <p class="text-light">{{card_output}}</p>
+                        </div>
+                    {{/if}}
 
                     {{#if redirect}}
                         <meta http-equiv="refresh" content="3;url=/yugioh" />

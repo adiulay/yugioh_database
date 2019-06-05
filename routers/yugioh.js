@@ -79,16 +79,19 @@ router.get('/yugioh/create_new_deck', (request, response) => {
 router.post('/yugioh/:id/create_new_deck', async (request, response) => {
     var deck_name = request.body.deck_name;
     var card_id = request.params.id;
-    var add_card = '';
     var redirect = false;
     var try_again = true;
+    var add_card = '';
 
     var create_deck = await yugioh.createDeck(`${deck_name}`);
 
     if (create_deck === `Deck ${deck_name} created! Redirecting to Home Page`) {
-        add_card = await yugioh.addCard(deck_name, card_id);
+        setTimeout(startup = async () => {
+            await yugioh.addCard(deck_name, card_id);
+        }, 2000);
         redirect = true;
         try_again = false;
+        add_card = 'Card successfully added!'
     }
 
     response.render('ygo_card_info.hbs', {

@@ -58,7 +58,7 @@ var show_deck = async (deck_name) => {
         var query = await yugioh_db.where('deck_name', '==', deck_name).get();
 
         if (query.empty) {
-            return `Deck ${name} is not found in the database.`
+            return `Deck ${deck_name} is not found in the database.`
         } else {
             query.forEach(doc => {
                 list = doc.data().deck;
@@ -75,8 +75,8 @@ var show_deck = async (deck_name) => {
         console.log('in short, its not working')
     }
 };
-//
-// show_deck('jimmy').then(item => {
+
+// show_deck('Jimmy').then(item => {
 //     console.log(item);
 // }).catch(err => {
 //     console.log('error');
