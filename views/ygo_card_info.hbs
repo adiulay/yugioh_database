@@ -38,32 +38,26 @@
                             <button type="submit" class="btn btn-dark border">Create</button>
                         </div>
 
-<!--                        <div class="modal fade" id="confirm_create" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">-->
-<!--                            <div class="modal-dialog" role="document">-->
-<!--                                <div class="modal-content border" id="bg-black">-->
-<!--                                    <div class="text-light">-->
-<!--                                        <div class="modal-header">-->
-<!--                                            <h5 class="modal-title" id="confirm_create">Create Deck</h5>-->
-<!--                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                                                <span class="text-light" aria-hidden="true">&times;</span>-->
-<!--                                            </button>-->
-<!--                                        </div>-->
-<!--                                        <div class="modal-body">-->
-<!--                                            <p id="deckname"></p>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="modal-footer">-->
-<!--                                        <button type="submit" class="btn btn-success border">Yes</button>-->
-<!--                                        <button type="button" class="btn btn-danger border" data-dismiss="modal">No</button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
                         <div class="text-right text-primary">
                             <button class="btn btn-link" type="button" onclick="return history.back();"><small>Cancel</small></button>
                         </div>
                     </form>
+
+                    <div class="row justify-content-center align-items-center">
+                        <h5 class="text-light">{{output}}</h5>
+                    </div>
+                    <div class="row justify-content-center align-items-center">
+                        <p class="text-light">{{card_output}}</p>
+                    </div>
+
+                    {{#if redirect}}
+                        <meta http-equiv="refresh" content="3;url=/yugioh" />
+                    {{/if}}
+
+                    {{#if try_again}}
+                        <meta http-equiv="refresh" content="1;url=/yugioh/{{card_identification}}/create_new_deck" />
+                    {{/if}}
+
                 {{else}}
                     <form class="container" action="/yugioh/create_new_deck" method="post">
                         <div class="form-group text-center">
@@ -71,13 +65,22 @@
                             <input type="text" class="form-control" id="deck_name" placeholder="Insert Deck Name" name="deck_name" required>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-dark border">Create</button>
+                            <button class="btn btn-dark border" type="submit">Create</button>
                         </div>
 
                         <div class="text-right text-primary">
                             <a class="btn btn-link" href="/yugioh"><small>Cancel</small></a>
                         </div>
                     </form>
+
+                    <div class="row justify-content-center align-items-center">
+                        <div class="text-light"><h5>{{output}}</h5></div>
+                    </div>
+
+                    {{#if redirect}}
+                        <meta http-equiv="refresh" content="3;url=/yugioh" />
+                    {{/if}}
+
                 {{/if}}
             </div>
 <!--            <div class="col-2 text-center border">{{card_identification}}</div>-->

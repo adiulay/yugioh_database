@@ -76,12 +76,52 @@ router.get('/yugioh/create_new_deck', (request, response) => {
     })
 });
 
-router.post('/yugioh/:id/create_new_deck', (request, response) => {
-    response.send('success man, make this redirect to previous page via id params')
+router.post('/yugioh/:id/create_new_deck', async (request, response) => {
+    var deck_name = request.body.deck_name;
+    var card_id = request.params.id;
+    var add_card = '';
+    var redirect = false;
+    var try_again = true;
+
+    var create_deck = await yugioh.createDeck(`${deck_name}`);
+
+    if (create_deck === `Deck ${deck_name} created! Redirecting to Home Page`) {
+        add_card = await yugioh.addCard(deck_name, card_id);
+        redirect = true;
+        try_again = false;
+    }
+
+    response.render('ygo_card_info.hbs', {
+        create_deck_link: 'bg-dark',
+        title: false,
+        create: true,
+        id_params: true,
+        redirect: redirect,
+        try_again: try_again,
+        card_identification: card_id,
+        output: create_deck,
+        card_output: add_card
+    })
 });
 
-router.post('/yugioh/create_new_deck', (request, response) => {
-    response.send('success via no id params.')
+router.post('/yugioh/create_new_deck', async (request, response) => {
+    var deck_name = request.body.deck_name;
+    var create_deck = await yugioh.createDeck(`${deck_name}`);
+
+    var redirect = create_deck === `Deck ${deck_name} created! Redirecting to Home Page`;
+
+    response.render('ygo_card_info.hbs', {
+        create_deck_link: 'bg-dark',
+        title: false,
+        create: true,
+        id_params: false,
+        redirect: redirect,
+        output: create_deck
+    })
+});
+
+router.get('/yugioh/deck_list', (request, response) => {
+    response.send('deck-list TODO')
 });
 
 // router.use((request, response) => {

@@ -31,7 +31,7 @@ var create_deck = async (name) => {
                     deck_name: name,
                     deck: []
                 });
-                return `Deck ${name} created.`
+                return `Deck ${name} created! Redirecting to Home Page`
                 // console.log(`Fail to find deck name: ${name}`) <-- can use this for something else
             } else {
                 return `${name} is already in used.`
@@ -43,7 +43,8 @@ var create_deck = async (name) => {
         })
     } catch (err) {
         console.log(err);
-        console.log('FAIL')
+        console.log('FAIL');
+        return 'FireBase is down, try again later.'
     }
 };
 
@@ -108,63 +109,6 @@ var delete_deck = async (name) => {
             console.log(err);
             console.log('FAIL');
         }
-    }
-};
-
-var add_card = async (deck_name, card_id) => {
-    //gets the deck name from db, if found, adds card-id
-    var db = admin.firestore();
-    try {
-        var list = [];
-        var doc_id = '';
-        var counter = 0;
-
-        var yugioh_db = db.collection('yugioh');
-
-        var query = await yugioh_db.where('deck_name', '==', deck_name).get();
-
-        if (query.empty) {
-            return `Deck ${deck_name} is not found in the database.`
-        } else {
-            query.forEach(doc => {
-                // console.log(doc.id);
-                // console.log(doc.data().deck[3]);
-                list = doc.data().deck;
-                doc_id = doc.id;
-            });
-
-            if (list.length === 60) {
-                return 'Maximum cards in deck is 60.'
-            } else {
-                var card_info = await CardInformation(card_id);
-
-                list.forEach(item => {
-                    if (item.name === card_info[0].name) {
-                        counter ++;
-                    }
-                });
-
-                if (counter === 3) {
-                    return 'Maximum is 3 cards'
-                }
-
-                if (card_info === false) {
-                    return `Card ID ${card_id} not found in Database.`
-                } else {
-                    list.push(card_info[0]);
-
-                    await yugioh_db.doc(doc_id).update({
-                        deck: list
-                    });
-
-                    return `${card_id} ${card_info[0].name} added to ${deck_name}`
-                }
-            }
-
-        }
-    } catch (err) {
-        console.log(err);
-        console.log('FAIL')
     }
 };
 
@@ -298,6 +242,63 @@ var CardInformation = async (id) => {
     } else {
         // return 'Number id must be an integer'
         return false
+    }
+};
+
+var add_card = async (deck_name, card_id) => {
+    //gets the deck name from db, if found, adds card-id
+    var db = admin.firestore();
+    try {
+        var list = [];
+        var doc_id = '';
+        var counter = 0;
+
+        var yugioh_db = db.collection('yugioh');
+
+        var query = await yugioh_db.where('deck_name', '==', deck_name).get();
+
+        if (query.empty) {
+            return `Deck ${deck_name} is not found in the database.`
+        } else {
+            query.forEach(doc => {
+                // console.log(doc.id);
+                // console.log(doc.data().deck[3]);
+                list = doc.data().deck;
+                doc_id = doc.id;
+            });
+
+            if (list.length === 60) {
+                return 'Maximum cards in deck is 60.'
+            } else {
+                var card_info = await CardInformation(_.toInteger(card_id));
+
+                list.forEach(item => {
+                    if (item.name === card_info[0].name) {
+                        counter ++;
+                    }
+                });
+
+                if (counter === 3) {
+                    return 'Maximum is 3 cards'
+                }
+
+                if (card_info === false) {
+                    return `Card ID ${card_id} not found in Database.`
+                } else {
+                    list.push(card_info[0]);
+
+                    await yugioh_db.doc(doc_id).update({
+                        deck: list
+                    });
+
+                    return `${card_id} ${card_info[0].name} added to ${deck_name}`
+                }
+            }
+
+        }
+    } catch (err) {
+        console.log(err);
+        console.log('FAIL')
     }
 };
 
