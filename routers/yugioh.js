@@ -42,16 +42,26 @@ router.post('/yugioh/YGOgeneral', async (request, response) => {
     response.render('ygo_main.hbs', yugioh_card)
 });
 
+var card_id = '';
 router.get('/yugioh/card_info/:id', async (request, response) => {
     card_information = await yugioh.getCardInfo(_.toInteger(request.params.id));
     console.log(card_information);
+    card_id = request.params.id;
+
     response.render('ygo_card_info.hbs', {
         show_info: card_information,
         show_card: card_information,
         yugioh_link: 'bg-dark',
         card_identification: request.params.id,
-        title: true
+        title: true,
+        list_deck: await yugioh.listDeck(),
     })
+});
+
+router.get('/yugioh/:deck_name/:deck_id', (request, response) => {
+    console.log(request.params);
+    console.log(card_id)
+    response.send('adding to deck, TODO')
 });
 
 router.get('/yugioh/:id/create_new_deck', (request, response) => {

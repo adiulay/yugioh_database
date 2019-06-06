@@ -76,7 +76,36 @@ var show_deck = async (deck_name) => {
     }
 };
 
-// show_deck('Jimmy').then(item => {
+var list_deck = async () => {
+    var db = admin.firestore();
+
+    try {
+        var list = [];
+
+        var yugioh_db = db.collection('yugioh');
+
+        var query = await yugioh_db.get();
+
+        if (query.empty) {
+            return false
+        } else {
+            query.forEach(doc => {
+                // list = doc.data().deck;
+                list.push({
+                    deck_name: doc.data().deck_name,
+                    deck_id: doc.id
+                })
+            })
+        }
+
+        return list
+    } catch (err) {
+        console.log(err);
+        console.log('in short, its not working')
+    }
+};
+//
+// list_deck().then(item => {
 //     console.log(item);
 // }).catch(err => {
 //     console.log('error');
@@ -308,6 +337,7 @@ module.exports = {
     getCardInfo: CardInformation,
     createDeck: create_deck,
     showDeck: show_deck,
+    listDeck: list_deck,
     deleteDeck: delete_deck,
     addCard: add_card,
     deleteCard: delete_card

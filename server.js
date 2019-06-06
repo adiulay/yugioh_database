@@ -31,9 +31,9 @@ app.get('/', (request, response) => {
 
 app.use(yugiohRouter);
 
-app.use((request, response) => {
-    response.render('Error_Page.hbs');
-});
+// app.use((request, response) => {
+//     response.render('Error_Page.hbs');
+// });
 
 app.listen(port, () => {
     console.log(`Server is up on the port ${port}`);
