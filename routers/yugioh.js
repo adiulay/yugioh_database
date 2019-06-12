@@ -58,10 +58,22 @@ router.get('/yugioh/card_info/:id', async (request, response) => {
     })
 });
 
-router.get('/yugioh/:deck_name/:deck_id', (request, response) => {
-    console.log(request.params);
-    console.log(card_id)
-    response.send('adding to deck, TODO')
+router.get('/yugioh/:deck_name/:deck_id/add_card', async (request, response) => {
+	var deck_name = request.params.deck_name;
+
+	if (card_id === '') {
+		response.redirect('/yugioh')
+	}
+
+	var add_card = await yugioh.addCard(`${deck_name}`, `${card_id}`)
+
+	card_id = '';
+
+	console.log(add_card);
+
+    // console.log(request.params);
+    // console.log(card_id)
+    response.send(`${add_card}`)
 });
 
 router.get('/yugioh/:id/create_new_deck', (request, response) => {
