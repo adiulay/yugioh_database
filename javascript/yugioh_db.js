@@ -93,7 +93,8 @@ var list_deck = async () => {
                 // list = doc.data().deck;
                 list.push({
                     deck_name: doc.data().deck_name,
-                    deck_id: doc.id
+                    deck_id: doc.id,
+                    deck: doc.data().deck
                 })
             })
         }
@@ -104,13 +105,6 @@ var list_deck = async () => {
         console.log('in short, its not working')
     }
 };
-//
-// list_deck().then(item => {
-//     console.log(item);
-// }).catch(err => {
-//     console.log('error');
-//     console.log(err)
-// });
 
 var delete_deck = async (name) => {
     var doc_id = '';

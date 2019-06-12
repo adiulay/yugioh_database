@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deck List</title>
+    <link rel="stylesheet" type="text/css" href="/css/background.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="container-fluid text-light">
+    {{> ygo_navbar}}
+
+    <div class="row justify-content-center">
+        <div class="col text-center mb-5" id="dark_opacity">
+            <h1>YuGiOh Database</h1>
+            <h2>Deck List</h2>
+        </div>
+    </div>
+
+    <div class="accordion" id="accordionExample">
+        <div class="card text-dark">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    {{#each deck}}
+                        <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#{{this.deck_id}}" aria-expanded="true" aria-controls="collapseOne">
+                            {{this.deck_name}}
+                        </button>
+                    {{/each}}
+<!--                    <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">-->
+<!--                        Collapsible Group Item #1-->
+<!--                    </button>-->
+<!--                    <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">-->
+<!--                        Collapsible Group Item #2-->
+<!--                    </button>-->
+                </h5>
+            </div>
+
+            {{#each deck}}
+                <div id="{{this.deck_id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+<!--                        TO DO MUST DO SOMETHING ABOUT THIS-->
+                        This is the deck name {{this.deck_name}}
+                    </div>
+                </div>
+            {{/each}}
+<!--            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">-->
+<!--                <div class="card-body">-->
+<!--                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">-->
+<!--                <div class="card-body">-->
+<!--                    life is fun-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </div>
+
+
+
+
+{{> bootstrap_js}}
+</body>
+</html>

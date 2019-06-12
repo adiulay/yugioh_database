@@ -92,6 +92,7 @@
     {{else}}
 <!--        This section lets you see the card information-->
         {{#if show_card}}
+<!--            <meta http-equiv="refresh" content="5">-->
             <div class="row justify-content-center align-items-center">
                 <div class="col-5 text-center">
                     {{#each show_info}}
@@ -117,48 +118,64 @@
             </div>
 
             <div class="row mt-5 justify-content-center align-self-center">
-                <div class="col-1 text-center text-light">
-                    <button class="btn btn-dark btn-lg border" onclick="return window.history.back()">Back</button>
-                </div>
+                {{#if add_button}}
+                    <div class="col-1 text-center text-light">
+                        <button class="btn btn-dark btn-lg border" onclick="return window.history.back(-1)">Back</button>
+                    </div>
 
-                <div class="btn-group dropdown col-1 text-center mb-5">
-                    <button type="button" class="btn btn-dark btn-lg border dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Add
-                    </button>
-                    <div class="dropdown-menu">
-                        <button data-toggle="modal" data-target="#creating_new_deck" class="dropdown-item">New Deck</button>
-                        <div class="dropdown-divider"></div>
-                        <!--                database will retrieve all the cards store in here-->
-                        {{#each list_deck}}
-                            <a class="dropdown-item" href="/yugioh/{{this.deck_name}}/{{this.deck_id}}/add_card">{{this.deck_name}}</a>
-                        {{/each}}
+                    <div class="btn-group dropdown col-1 text-center mb-5">
+                        <button type="button" class="btn btn-dark btn-lg border dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Add
+                        </button>
+                        <div class="dropdown-menu">
+                            <button data-toggle="modal" data-target="#creating_new_deck" class="dropdown-item">New Deck</button>
+                            <div class="dropdown-divider"></div>
+                            <!--                database will retrieve all the cards store in here-->
+                            {{#each list_deck}}
+                                <a class="dropdown-item" href="/yugioh/{{this.deck_name}}/{{this.deck_id}}/add_card">{{this.deck_name}}</a>
+                            {{/each}}
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="col-1 text-center text-light">
+                        <button class="btn btn-dark btn-lg border" onclick="return window.history.back(-1);">Back</button>
+                    </div>
+                {{/if}}
+            </div>
+
+            {{#if add}}
+<!--                for successfully adding to the deck, or an error-->
+                <div class="row mt-4 justify-content-center">
+                    <div class="col-6 border border-{{border_color}} text-center text-light" id="dark_opacity">
+                        <span>{{add_to_deck}}</span>
                     </div>
                 </div>
+            {{/if}}
 
 <!--                MODAL FOR NEW DECK-->
-                <div class="modal fade" id="creating_new_deck" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content border" id="bg-black">
-                            <div class="text-light">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="creating_new_deck">Create Deck</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span class="text-light" aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Do you want to create a new deck?</p>
-                                </div>
+            <div class="modal fade" id="creating_new_deck" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content border" id="bg-black">
+                        <div class="text-light">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="creating_new_deck">Create Deck</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span class="text-light" aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <div class="modal-footer">
-                                <form action="/yugioh/{{card_identification}}/create_new_deck" method="get">
-                                    <button type="submit" class="btn btn-success border">Yes</button>
-                                </form>
-                                <button type="button" class="btn btn-danger border" data-dismiss="modal">No</button>
+                            <div class="modal-body">
+                                <p>Do you want to create a new deck?</p>
                             </div>
+                        </div>
+                        <div class="modal-footer">
+                            <form action="/yugioh/{{card_identification}}/create_new_deck" method="get">
+                                <button type="submit" class="btn btn-success border">Yes</button>
+                            </form>
+                            <button type="button" class="btn btn-danger border" data-dismiss="modal">No</button>
                         </div>
                     </div>
                 </div>
+            </div>
         {{else}}
             <div class="row justify-content-center">
                 <div class="col text-center">

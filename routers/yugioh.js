@@ -55,25 +55,44 @@ router.get('/yugioh/card_info/:id', async (request, response) => {
         card_identification: request.params.id,
         title: true,
         list_deck: await yugioh.listDeck(),
+        add_button: true
     })
 });
 
 router.get('/yugioh/:deck_name/:deck_id/add_card', async (request, response) => {
 	var deck_name = request.params.deck_name;
 
-	if (card_id === '') {
-		response.redirect('/yugioh')
-	}
+	card_information = await yugioh.getCardInfo(_.toInteger(card_id));
 
-	var add_card = await yugioh.addCard(`${deck_name}`, `${card_id}`)
+	var add_card = await yugioh.addCard(`${deck_name}`, `${card_id}`);
 
-	card_id = '';
+    if (card_id === '') {
+        // response.redirect('/yugioh')
+        response.redirect('back')
+    }
 
-	console.log(add_card);
+	if (add_card === 'Maximum cards in deck is 60.' || add_card === `Deck ${deck_name} is not found in the database.`) {
+	    color = 'danger'
+    } else if (add_card === 'Maximum is 3 cards') {
+	    color = 'warning'
+    } else {
+	    color = 'success'
+    }
 
-    // console.log(request.params);
-    // console.log(card_id)
-    response.send(`${add_card}`)
+	// console.log(add_card);
+
+    response.render(`ygo_card_info.hbs`, {
+        title: true,
+        show_info: card_information,
+        show_card: card_information,
+        yugioh_link: 'bg-dark',
+        card_identifcation: card_id,
+        list_deck: await yugioh.listDeck(),
+        add: true,
+        add_to_deck: add_card,
+        border_color: color,
+        add_button: false
+    })
 });
 
 router.get('/yugioh/:id/create_new_deck', (request, response) => {
@@ -145,8 +164,14 @@ router.post('/yugioh/create_new_deck', async (request, response) => {
     })
 });
 
-router.get('/yugioh/deck_list', (request, response) => {
-    response.send('deck-list TODO')
+router.get('/yugioh/deck_list', async (request, response) => {
+    var list_deck = await yugioh.listDeck();
+    console.log(list_deck)
+
+    response.render('ygo_decklist.hbs', {
+        deck_list_link: 'bg-dark',
+        deck: list_deck
+    })
 });
 
 // router.use((request, response) => {
