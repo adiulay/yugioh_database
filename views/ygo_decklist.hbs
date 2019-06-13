@@ -16,48 +16,50 @@
         </div>
     </div>
 
-    <div class="accordion" id="accordionExample">
-        <div class="card text-dark">
-            <div class="card-header" id="headingOne">
-                <h5 class="mb-0">
-                    {{#each deck}}
-                        <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#{{this.deck_id}}" aria-expanded="true" aria-controls="collapseOne">
-                            {{this.deck_name}}
-                        </button>
-                    {{/each}}
-<!--                    <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">-->
-<!--                        Collapsible Group Item #1-->
-<!--                    </button>-->
-<!--                    <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">-->
-<!--                        Collapsible Group Item #2-->
-<!--                    </button>-->
-                </h5>
+    {{#if list}}
+        <div class="row justify-content-center">
+            <div class="accordion col-8 text-light" id="accordionExample">
+                {{#each deck}}
+                    <div class="card text-light" id="dark_opacity">
+
+                        <div class="card-header text-center" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-dark btn-lg" type="button" data-toggle="collapse" data-target="#{{this.deck_id}}" aria-expanded="true" aria-controls="collapseOne">
+                                    <h4>{{this.deck_name}}</h4>
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="{{this.deck_id}}" class="collapse border border-primary" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <h1>{{this.deck_name}} Deck</h1>
+                                {{#each this.deck}}
+                                    <p>{{this.name}}</p>
+                                    {{#if this.image_url}}<img src="{{this.image_url}}" width="300" height="441" alt="YuGiOh_Card">{{/if}}
+                                {{/each}}
+                            </div>
+                        </div>
+
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    {{else}}
+        <div class="row justify-content-center">
+            <div class="col-8 text-center mb-5" id="dark_opacity">
+                <a class="btn btn-link text-light" href="/yugioh/create_new_deck"><h1>ITS EMPTY, CLICK HERE TO CREATE NEW DECK!</h1></a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-1 text-center">
+                <a class="btn btn-dark btn-lg border" href="/yugioh">Home</a>
             </div>
 
-            {{#each deck}}
-                <div id="{{this.deck_id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                    <div class="card-body">
-<!--                        TO DO MUST DO SOMETHING ABOUT THIS-->
-                        This is the deck name {{this.deck_name}}
-                    </div>
-                </div>
-            {{/each}}
-<!--            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">-->
-<!--                <div class="card-body">-->
-<!--                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">-->
-<!--                <div class="card-body">-->
-<!--                    life is fun-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="col-1 text-center">
+                <button class="btn btn-dark btn-lg border" onclick="return window.history.back(-1)">Back</button>
+            </div>
         </div>
-    </div>
-
-
-
+    {{/if}}
 
 {{> bootstrap_js}}
 </body>

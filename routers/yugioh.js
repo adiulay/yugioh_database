@@ -2,6 +2,7 @@ const express = require('express');
 const router = new express.Router();
 const _ = require('lodash');
 const fs = require('fs');
+const hbs = require('hbs');
 
 const yugioh = require('../javascript/yugioh_db');
 
@@ -166,11 +167,13 @@ router.post('/yugioh/create_new_deck', async (request, response) => {
 
 router.get('/yugioh/deck_list', async (request, response) => {
     var list_deck = await yugioh.listDeck();
-    console.log(list_deck)
+
+    list_exist = list_deck !== false;
 
     response.render('ygo_decklist.hbs', {
         deck_list_link: 'bg-dark',
-        deck: list_deck
+        deck: list_deck,
+        list: list_exist
     })
 });
 

@@ -91,20 +91,70 @@ var list_deck = async () => {
         } else {
             query.forEach(doc => {
                 // list = doc.data().deck;
-                list.push({
-                    deck_name: doc.data().deck_name,
-                    deck_id: doc.id,
-                    deck: doc.data().deck
-                })
+                if (doc.data().deck.length === 0) {
+                    list.push({
+                        deck_name: doc.data().deck_name,
+                        deck_id: doc.id,
+                        deck: [{
+                            name: `${doc.data().deck_name} is empty, add more cards!`
+                        }]
+                    })
+                } else {
+                    list.push({
+                        deck_name: doc.data().deck_name,
+                        deck_id: doc.id,
+                        deck: doc.data().deck
+                    })
+                }
             })
         }
 
-        return list
+        return list.sort(compareValues('deck_name'))
     } catch (err) {
         console.log(err);
         console.log('in short, its not working')
     }
 };
+
+//this ugly piece of function allows me to sort them in strings... dynamically
+function compareValues(key, order='asc') {
+    return function(a, b) {
+        if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+            // property doesn't exist on either object
+            return 0;
+        }
+
+        const varA = (typeof a[key] === 'string') ?
+            a[key].toUpperCase() : a[key];
+        const varB = (typeof b[key] === 'string') ?
+            b[key].toUpperCase() : b[key];
+
+        let comparison = 0;
+        if (varA > varB) {
+            comparison = 1;
+        } else if (varA < varB) {
+            comparison = -1;
+        }
+        return (
+            (order === 'desc') ? (comparison * -1) : comparison
+        );
+    };
+}
+
+// async function check() {
+//     try {
+//         var feel = await list_deck();
+//
+//         feel.forEach(async doc => {
+//             console.log(await show_deck(doc.deck_name))
+//         })
+//
+//     } catch (err) {
+//         console.log(err)
+//     }
+// }
+//
+// check();
 
 var delete_deck = async (name) => {
     var doc_id = '';
