@@ -32,11 +32,16 @@
 
                         <div id="{{this.deck_id}}" class="collapse border border-primary" aria-labelledby="headingOne" data-parent="#accordionExample">
                             <div class="card-body">
-                                <h1>{{this.deck_name}} Deck</h1>
                                 {{#each this.deck}}
                                     <p>{{this.name}}</p>
-                                    {{#if this.image_url}}<img src="{{this.image_url}}" width="300" height="441" alt="YuGiOh_Card">{{/if}}
                                 {{/each}}
+                                <div class="row justify-content-center">
+                                    <div class="col d-flex flex-wrap justify-content-center">
+                                        {{#each this.deck}}
+                                        {{#if this.image_url}}<img class="my-2 mx-2" src="{{this.image_url}}" width="300" height="441" alt="YuGiOh_Card">{{/if}}
+                                        {{/each}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
