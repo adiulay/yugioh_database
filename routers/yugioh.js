@@ -6,7 +6,7 @@ const hbs = require('hbs');
 
 const yugioh = require('../javascript/yugioh_db');
 
-
+//main page
 router.get('/yugioh', (request, response) => {
     response.render('ygo_main.hbs', {
         yugioh_link: 'bg-dark',
@@ -14,6 +14,7 @@ router.get('/yugioh', (request, response) => {
     })
 });
 
+//grabs specific card
 router.post('/yugioh/YGOspecific', async (request, response) => {
     var card = request.body.specific;
     var grab_card = await yugioh.FindSpecific(card);
@@ -29,6 +30,7 @@ router.post('/yugioh/YGOspecific', async (request, response) => {
     response.render('ygo_main.hbs', yugioh_card)
 });
 
+//grabs general card, in order
 router.post('/yugioh/YGOgeneral', async (request, response) => {
     var card = request.body.general;
     var grab_card = await yugioh.FindGeneral(card);
@@ -43,6 +45,7 @@ router.post('/yugioh/YGOgeneral', async (request, response) => {
     response.render('ygo_main.hbs', yugioh_card)
 });
 
+//outputs the card info id
 var card_id = '';
 router.get('/yugioh/card_info/:id', async (request, response) => {
     card_information = await yugioh.getCardInfo(_.toInteger(request.params.id));
@@ -60,6 +63,7 @@ router.get('/yugioh/card_info/:id', async (request, response) => {
     })
 });
 
+//adds card to deck name depending on what it is
 router.get('/yugioh/:deck_name/:deck_id/add_card', async (request, response) => {
 	var deck_name = request.params.deck_name;
 
@@ -91,6 +95,35 @@ router.get('/yugioh/:deck_name/:deck_id/add_card', async (request, response) => 
         list_deck: await yugioh.listDeck(),
         add: true,
         add_to_deck: add_card,
+        border_color: color,
+        add_button: false
+    })
+});
+
+//allows you to delete a card from a certain deck
+router.post('/yugioh/delete/:deck_name/:card_id', async (request, response) => {
+    var deck_name = request.params.deck_name;
+    var card_id = request.params.card_id;
+    card_information = await yugioh.getCardInfo(_.toInteger(card_id));
+
+    var delete_card = await yugioh.deleteCard(deck_name, card_id);
+
+    if (delete_card === `Deck ${deck_name} is not found in the database.` || delete_card === `Card ${card_id} not found in ${deck_name} deck.`) {
+        color = 'danger'
+    } else {
+        color = 'success'
+    }
+
+    console.log(delete_card);
+    response.render(`ygo_card_info.hbs`, {
+        title: true,
+        show_info: card_information,
+        show_card: card_information,
+        yugioh_link: 'bg-dark',
+        card_identifcation: card_id,
+        list_deck: await yugioh.listDeck(),
+        add: true,
+        add_to_deck: delete_card,
         border_color: color,
         add_button: false
     })
@@ -165,10 +198,26 @@ router.post('/yugioh/create_new_deck', async (request, response) => {
     })
 });
 
+router.post('/yugioh/delete_deck/:deck_name', async (request, response) => {
+    var deck_name = request.params.deck_name;
+    var delete_deck = await yugioh.deleteDeck(deck_name);
+
+    // console.log(delete_deck)
+
+    response.render("ygo_decklist.hbs", {
+        deck_list_link: 'bg-dark',
+        delete_deck: delete_deck,
+        delete: true
+    })
+});
+
 router.get('/yugioh/deck_list', async (request, response) => {
     var list_deck = await yugioh.listDeck();
 
     list_exist = list_deck !== false;
+
+    // console.log(list_deck)
+    // console.log(list_exist)
 
     response.render('ygo_decklist.hbs', {
         deck_list_link: 'bg-dark',

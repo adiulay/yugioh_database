@@ -96,7 +96,7 @@ var list_deck = async () => {
                         deck_name: doc.data().deck_name,
                         deck_id: doc.id,
                         deck: [{
-                            name: `${doc.data().deck_name} is empty, add more cards!`
+                            name: `Deck is empty, add more cards!`
                         }]
                     })
                 } else {

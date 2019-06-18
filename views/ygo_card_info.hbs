@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     {{#if title}}
-        <title>YuGiOh Card Info</title>
+        {{#each show_info}}
+            {{#if this.name}}
+                <title>YuGiOh Card - {{this.name}}</title>
+            {{else}}
+                    <title>YuGiOh Card Info</title>
+            {{/if}}
+        {{/each}}
     {{else}}
         <title>YuGiOh Create Deck</title>
     {{/if}}
