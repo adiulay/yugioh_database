@@ -47,12 +47,14 @@
                                     <div class="w-100 border border-primary"></div>
 
                                     {{#each this.deck}}
-                                        <div class="col d-flex justify-content-center align-items-center">
-                                            {{#if this.image_url}}<a class="my-2 mx-2" href="/yugioh/card_info/{{this.id}}"><img class="my-2 mx-2" src="{{this.image_url}}" width="300" height="441" alt="YuGiOh_Card"></a>{{/if}}
-                                        </div>
-                                        <div class="col d-flex justify-content-center align-items-center">
+                                        {{#if this.image_url}}
+                                            <div class="col d-flex justify-content-center align-items-center">
+                                                <a class="my-2 mx-2" href="/yugioh/card_info/{{this.id}}"><img class="my-2 mx-2" src="{{this.image_url}}" width="300" height="441" alt="YuGiOh_Card"></a>
+                                            </div>
+                                        {{/if}}
+                                        <div class="col my-3 d-flex justify-content-center align-items-center">
                                             <div>
-                                                <div class="mb-1"><span class="font-weight-bold">Name: </span> {{this.name}}</div>
+                                                <div class="mb-1"><span><h3>{{this.name}}</h3></span></div>
                                                 {{#if this.type}}<div class="mb-1"><span class="font-weight-bold">Type: {{this.type}}</div>{{/if}}
                                                 {{#if this.desc}}<div class="mb-1"><span class="font-weight-bold">Description: </span>{{this.desc}}</div>{{/if}}
                                                 {{#if this.def}}<div class="mb-1"><span class="font-weight-bold">Level: </span>{{this.level}}</div>{{/if}}
@@ -60,9 +62,12 @@
                                                 {{#if this.def}}<div class="mb-1"><span class="font-weight-bold">Attribute: </span>{{this.attribute}}</div>{{/if}}
                                                 {{#if this.archetype}}<div class="mb-1"><span class="font-weight-bold">Archetype: </span>{{this.archetype}}</div>{{/if}}
 
-                                                <form action="/yugioh/delete/{{../this.deck_name}}/{{this.id}}" method="post">
-                                                    <button class="btn btn-dark btn-outline-danger btn-lg" type="submit">Delete</button>
-                                                </form>
+                                                {{#if this.image_url}}
+                                                    <form class="my-3" action="/yugioh/delete/{{../this.deck_name}}/{{this.id}}" method="post">
+                                                        <button class="btn btn-dark btn-outline-danger btn-lg" type="submit">Delete</button>
+                                                    </form>
+                                                {{/if}}
+
                                             </div>
                                         </div>
                                         <div class="w-100 border border-primary"></div>
@@ -95,6 +100,7 @@
                 <button class="btn btn-dark btn-lg border" onclick="return window.history.back()">Back</button>
             </div>
         </div>
+        <meta http-equiv="refresh" content="1;url=/yugioh/deck_list" />
     {{/if}}
 
 {{> bootstrap_js}}
