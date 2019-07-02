@@ -49,29 +49,47 @@
                                     {{#each this.deck}}
                                         {{#if this.image_url}}
                                             <div class="col d-flex justify-content-center align-items-center">
-                                                <a class="my-2 mx-2" href="/yugioh/card_info/{{this.id}}"><img class="my-2 mx-2" src="{{this.image_url}}" width="300" height="441" alt="YuGiOh_Card"></a>
+                                                <div class="card-container">
+                                                    <div class="card-flip">
+                                                        <div class="front">
+                                                            <a class="my-2 mx-2" href="/yugioh/card_info/{{this.id}}" target="_blank"><img class="my-2 mx-2" src="{{this.image_url}}" width="150" height="220.5" alt="YuGiOh_Card"></a>
+                                                        </div>
+
+                                                        <div class="back">
+                                                            <form action="/yugioh/delete/{{../this.deck_name}}/{{this.id}}" method="post">
+                                                                <img class="my-2 mx-2" src="../images/yugioh-backcard.png" width="150" height="220.5" alt="YuGiOh_Card">
+                                                                <div class="centered">
+                                                                    <a class="btn btn-dark btn-outline-success btn-lg mb-3" href="/yugioh/card_info/{{this.id}}" target="_blank">Details</a>
+                                                                    <button class="btn btn-dark btn-outline-danger btn-lg" type="submit">Delete</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         {{/if}}
-                                        <div class="col my-3 d-flex justify-content-center align-items-center">
-                                            <div>
-                                                <div class="mb-1"><span><h3>{{this.name}}</h3></span></div>
-                                                {{#if this.type}}<div class="mb-1"><span class="font-weight-bold">Type: {{this.type}}</div>{{/if}}
-                                                {{#if this.desc}}<div class="mb-1"><span class="font-weight-bold">Description: </span>{{this.desc}}</div>{{/if}}
-                                                {{#if this.def}}<div class="mb-1"><span class="font-weight-bold">Level: </span>{{this.level}}</div>{{/if}}
-                                                {{#if this.race}}<div class="mb-1"><span class="font-weight-bold">Race: </span>{{this.race}}</div>{{/if}}
-                                                {{#if this.def}}<div class="mb-1"><span class="font-weight-bold">Attribute: </span>{{this.attribute}}</div>{{/if}}
-                                                {{#if this.archetype}}<div class="mb-1"><span class="font-weight-bold">Archetype: </span>{{this.archetype}}</div>{{/if}}
-
-                                                {{#if this.image_url}}
-                                                    <form class="my-3" action="/yugioh/delete/{{../this.deck_name}}/{{this.id}}" method="post">
-                                                        <button class="btn btn-dark btn-outline-danger btn-lg" type="submit">Delete</button>
-                                                    </form>
-                                                {{/if}}
-
-                                            </div>
-                                        </div>
-                                        <div class="w-100 border border-primary"></div>
                                     {{/each}}
+
+
+<!--                                        <div class="col my-3 d-flex justify-content-center align-items-center">-->
+<!--                                            <div>-->
+<!--                                                <div class="mb-1"><span><h3>{{this.name}}</h3></span></div>-->
+<!--                                                {{#if this.type}}<div class="mb-1"><span class="font-weight-bold">Type: {{this.type}}</div>{{/if}}-->
+<!--                                                {{#if this.desc}}<div class="mb-1"><span class="font-weight-bold">Description: </span>{{this.desc}}</div>{{/if}}-->
+<!--                                                {{#if this.def}}<div class="mb-1"><span class="font-weight-bold">Level: </span>{{this.level}}</div>{{/if}}-->
+<!--                                                {{#if this.race}}<div class="mb-1"><span class="font-weight-bold">Race: </span>{{this.race}}</div>{{/if}}-->
+<!--                                                {{#if this.def}}<div class="mb-1"><span class="font-weight-bold">Attribute: </span>{{this.attribute}}</div>{{/if}}-->
+<!--                                                {{#if this.archetype}}<div class="mb-1"><span class="font-weight-bold">Archetype: </span>{{this.archetype}}</div>{{/if}}-->
+
+<!--                                                {{#if this.image_url}}-->
+<!--                                                    <form class="my-3" action="/yugioh/delete/{{../this.deck_name}}/{{this.id}}" method="post">-->
+<!--                                                        <button class="btn btn-dark btn-outline-danger btn-lg" type="submit">Delete</button>-->
+<!--                                                    </form>-->
+<!--                                                {{/if}}-->
+
+<!--                                            </div>-->
+<!--                                        </div>-->
+                                        <div class="w-100 border border-primary"></div>
 
                                 </div>
                             </div>
