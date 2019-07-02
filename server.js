@@ -8,6 +8,7 @@ const fs = require('fs');
 
 //app imports
 const { yugiohRouter } = require('./routers');
+const { chickenRouter } = require('./routers');
 
 //app global server
 var app = express();
@@ -30,6 +31,8 @@ app.get('/', (request, response) => {
 });
 
 app.use(yugiohRouter);
+
+app.use(chickenRouter);
 
 // app.use((request, response) => {
 //     response.render('Error_Page.hbs');
