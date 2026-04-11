@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/adiulay/yugioh_database#readme",
   "dependencies": {
-    "axios": "^0.30.3",
+    "axios": "^1.15.0",
     "body-parser": "^1.20.4",
     "express": "^4.22.1",
     "firebase-admin": "^13.7.0",
